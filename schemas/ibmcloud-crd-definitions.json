@@ -1,0 +1,936 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://json.schemastore.org/knativeeventing",
+    "title": "Knative Eventing",
+    "description": "IBM Cloud Service CRD schemas",
+    "definitions": {
+        "apiVersion": {
+            "type": "string",
+            "description": "Custom resource API group/version, e.g. ibmcloud.ibm.com/v1alpha1",
+            "minLength": 5
+        },
+        "kind": {
+            "type": "string",
+            "description": "Custom resource kind, e.g. Service",
+            "minLength": 3
+        },
+        "metadata": {
+            "description": "Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata",
+            "$ref": "https://kubernetesjsonschema.dev/v1.17.0/_definitions.json#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta",
+            "required": [
+                "name"
+            ]
+        },
+        "ibmcloud.ibm.com.v1alpha1.ServiceSpec": {
+            "properties": {
+                "context": {
+                    "properties": {
+                        "org": {
+                            "type": "string"
+                        },
+                        "region": {
+                            "type": "string"
+                        },
+                        "resourcegroup": {
+                            "type": "string"
+                        },
+                        "resourcegroupid": {
+                            "type": "string"
+                        },
+                        "resourcelocation": {
+                            "type": "string"
+                        },
+                        "space": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "externalName": {
+                    "type": "string"
+                },
+                "parameters": {
+                    "items": {
+                        "properties": {
+                            "attributes": {
+                                "description": "A parameter may have attributes (e.g. message hub topic might have partitions)",
+                                "type": "object"
+                            },
+                            "name": {
+                                "description": "Name representing the key.",
+                                "type": "string"
+                            },
+                            "value": {
+                                "description": "Defaults to null."
+                            },
+                            "valueFrom": {
+                                "description": "Source for the value. Cannot be used if value is not empty.",
+                                "properties": {
+                                    "configMapKeyRef": {
+                                        "description": "Selects a key of a ConfigMap.",
+                                        "$ref": "https://kubernetesjsonschema.dev/v1.15.0/_definitions.json#/definitions/io.k8s.api.core.v1.ConfigMapKeySelector"
+                                    },
+                                    "secretKeyRef": {
+                                        "description": "Selects a key of a secret in the resource namespace",
+                                        "$ref": "https://kubernetesjsonschema.dev/v1.15.0/_definitions.json#/definitions/io.k8s.api.core.v1.SecretKeySelector"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "required": [
+                            "name"
+                        ],
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "plan": {
+                    "type": "string"
+                },
+                "serviceClass": {
+                    "type": "string"
+                },
+                "serviceClassType": {
+                    "type": "string"
+                },
+                "tags": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "serviceClass",
+                "plan"
+            ],
+            "type": "object"
+        },
+        "ibmcloud.ibm.com.v1alpha1.ServiceStatus": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "properties": {
+                        "binding": {
+                            "type": "string"
+                        },
+                        "context": {
+                            "properties": {
+                                "org": {
+                                    "type": "string"
+                                },
+                                "region": {
+                                    "type": "string"
+                                },
+                                "resourcegroup": {
+                                    "type": "string"
+                                },
+                                "resourcegroupid": {
+                                    "type": "string"
+                                },
+                                "resourcelocation": {
+                                    "type": "string"
+                                },
+                                "space": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "externalName": {
+                            "type": "string"
+                        },
+                        "generation": {
+                            "format": "int64",
+                            "type": "integer"
+                        },
+                        "instanceId": {
+                            "type": "string"
+                        },
+                        "message": {
+                            "type": "string"
+                        },
+                        "plan": {
+                            "type": "string"
+                        },
+                        "serviceClass": {
+                            "type": "string"
+                        },
+                        "serviceClassType": {
+                            "type": "string"
+                        },
+                        "state": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "serviceClass",
+                        "serviceClassType",
+                        "plan"
+                    ],
+                    "type": "object"
+                }
+            }
+        },
+        "ibmcloud.ibm.com.v1alpha1.Service": {
+            "x-kubernetes-group-version-kind": [
+                {
+                    "kind": "Service",
+                    "version": "v1alpha1",
+                    "group": "ibmcloud.ibm.com"
+                }
+            ],
+            "description": "ibmcloud.ibm.com.v1alpha1.Service",
+            "type": "object",
+            "properties": {
+                "apiVersion": {
+                    "$ref": "#/definitions/apiVersion"
+                },
+                "kind": {
+                    "description": "Kind is a string value representing the REST resource this object represents.",
+                    "type": "string",
+                    "enum": [
+                        "Service"
+                    ]
+                },
+                "metadata": {
+                    "$ref": "#/definitions/metadata"
+                },
+                "spec": {
+                    "description": "Specification. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status",
+                    "$ref": "#/definitions/ibmcloud.ibm.com.v1alpha1.ServiceSpec"
+                },
+                "status": {
+                    "description": "Most recently observed status. This data may not be up to date. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status",
+                    "$ref": "#/definitions/ibmcloud.ibm.com.v1alpha1.ServiceStatus"
+                }
+            }
+        },
+        "ibmcloud.ibm.com.v1alpha1.BindingSpec": {
+            "properties": {
+                "alias": {
+                    "type": "string"
+                },
+                "parameters": {
+                    "items": {
+                        "properties": {
+                            "attributes": {
+                                "description": "A parameter may have attributes (e.g. message hub topic might have partitions)",
+                                "type": "object"
+                            },
+                            "name": {
+                                "description": "Name representing the key.",
+                                "type": "string"
+                            },
+                            "value": {
+                                "description": "Defaults to null."
+                            },
+                            "valueFrom": {
+                                "description": "Source for the value. Cannot be used if value is not empty.",
+                                "properties": {
+                                    "configMapKeyRef": {
+                                        "description": "Selects a key of a ConfigMap.",
+                                        "$ref": "https://kubernetesjsonschema.dev/v1.15.0/_definitions.json#/definitions/io.k8s.api.core.v1.ConfigMapKeySelector"
+                                    },
+                                    "secretKeyRef": {
+                                        "description": "Selects a key of a secret in the resource namespace",
+                                        "$ref": "https://kubernetesjsonschema.dev/v1.15.0/_definitions.json#/definitions/io.k8s.api.core.v1.SecretKeySelector"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "required": [
+                            "name"
+                        ],
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "role": {
+                    "type": "string"
+                },
+                "secretName": {
+                    "type": "string"
+                },
+                "serviceName": {
+                    "type": "string"
+                },
+                "serviceNamespace": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "serviceName"
+            ],
+            "type": "object"
+        },
+        "ibmcloud.ibm.com.v1alpha1.BindingStatus": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "properties": {
+                        "generation": {
+                            "format": "int64",
+                            "type": "integer"
+                        },
+                        "instanceId": {
+                            "type": "string"
+                        },
+                        "keyInstanceId": {
+                            "type": "string"
+                        },
+                        "message": {
+                            "type": "string"
+                        },
+                        "secretName": {
+                            "type": "string"
+                        },
+                        "state": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                }
+            }
+        },
+        "ibmcloud.ibm.com.v1alpha1.Binding": {
+            "x-kubernetes-group-version-kind": [
+                {
+                    "kind": "Binding",
+                    "version": "v1alpha1",
+                    "group": "ibmcloud.ibm.com"
+                }
+            ],
+            "description": "ibmcloud.ibm.com.v1alpha1.Binding",
+            "type": "object",
+            "properties": {
+                "apiVersion": {
+                    "$ref": "#/definitions/apiVersion"
+                },
+                "kind": {
+                    "description": "Kind is a string value representing the REST resource this object represents.",
+                    "type": "string",
+                    "enum": [
+                        "Binding"
+                    ]
+                },
+                "metadata": {
+                    "$ref": "#/definitions/metadata"
+                },
+                "spec": {
+                    "description": "Specification. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status",
+                    "$ref": "#/definitions/ibmcloud.ibm.com.v1alpha1.BindingSpec"
+                },
+                "status": {
+                    "description": "Most recently observed status. This data may not be up to date. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status",
+                    "$ref": "#/definitions/ibmcloud.ibm.com.v1alpha1.BindingStatus"
+                }
+            }
+        },
+        "ibmcloud.ibm.com.v1alpha1.ComposableSpec": {
+            "description": "ComposableSpec defines the desired state of Composable",
+            "properties": {
+                "template": {
+                    "description": "Template defines the underlying object",
+                    "type": "object"
+                }
+            },
+            "required": [
+                "template"
+            ],
+            "type": "object"
+        },
+        "ibmcloud.ibm.com.v1alpha1.ComposableStatus": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "description": "ComposableStatus defines the observed state of Composable",
+                    "properties": {
+                        "message": {
+                            "description": "Message - provides human readable explanation of the Composable status",
+                            "type": "string"
+                        },
+                        "state": {
+                            "description": "State shows the composable object state",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                }
+            }
+        },
+        "ibmcloud.ibm.com.v1alpha1.Composable": {
+            "x-kubernetes-group-version-kind": [
+                {
+                    "kind": "Composable",
+                    "version": "v1alpha1",
+                    "group": "ibmcloud.ibm.com"
+                }
+            ],
+            "description": "ibmcloud.ibm.com.v1alpha1.Composable",
+            "type": "object",
+            "properties": {
+                "apiVersion": {
+                    "$ref": "#/definitions/apiVersion"
+                },
+                "kind": {
+                    "description": "Kind is a string value representing the REST resource this object represents.",
+                    "type": "string",
+                    "enum": [
+                        "Composable"
+                    ]
+                },
+                "metadata": {
+                    "$ref": "#/definitions/metadata"
+                },
+                "spec": {
+                    "description": "Specification. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status",
+                    "$ref": "#/definitions/ibmcloud.ibm.com.v1alpha1.ComposableSpec"
+                },
+                "status": {
+                    "description": "Most recently observed status. This data may not be up to date. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status",
+                    "$ref": "#/definitions/ibmcloud.ibm.com.v1alpha1.ComposableStatus"
+                }
+            }
+        },
+        "ibmcloud.ibm.com.v1alpha1.TopicSpec": {
+            "properties": {
+                "apiKey": {
+                    "properties": {
+                        "configMapKeyRef": {
+                            "description": "Selects a key of a ConfigMap.",
+                            "$ref": "https://kubernetesjsonschema.dev/v1.15.0/_definitions.json#/definitions/io.k8s.api.core.v1.ConfigMapKeySelector"
+                        },
+                        "secretKeyRef": {
+                            "description": "Selects a key of a secret in the resource namespace",
+                            "$ref": "https://kubernetesjsonschema.dev/v1.15.0/_definitions.json#/definitions/io.k8s.api.core.v1.SecretKeySelector"
+                        }
+                    },
+                    "type": "object"
+                },
+                "bindingFrom": {
+                    "properties": {
+                        "name": {
+                            "type": "string"
+                        },
+                        "namespace": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "name"
+                    ],
+                    "type": "object"
+                },
+                "configs": {
+                    "items": {
+                        "properties": {
+                            "attributes": {
+                                "description": "A parameter may have attributes (e.g. message hub topic might have partitions)",
+                                "type": "object"
+                            },
+                            "name": {
+                                "description": "Name representing the key.",
+                                "type": "string"
+                            },
+                            "value": {
+                                "description": "Defaults to null."
+                            },
+                            "valueFrom": {
+                                "description": "Source for the value. Cannot be used if value is not empty.",
+                                "properties": {
+                                    "configMapKeyRef": {
+                                        "description": "Selects a key of a ConfigMap.",
+                                        "$ref": "https://kubernetesjsonschema.dev/v1.15.0/_definitions.json#/definitions/io.k8s.api.core.v1.ConfigMapKeySelector"
+                                    },
+                                    "secretKeyRef": {
+                                        "description": "Selects a key of a secret in the resource namespace",
+                                        "$ref": "https://kubernetesjsonschema.dev/v1.15.0/_definitions.json#/definitions/io.k8s.api.core.v1.SecretKeySelector"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "required": [
+                            "name"
+                        ],
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "kafkaAdminUrl": {
+                    "properties": {
+                        "configMapKeyRef": {
+                            "description": "Selects a key of a ConfigMap.",
+                            "$ref": "https://kubernetesjsonschema.dev/v1.15.0/_definitions.json#/definitions/io.k8s.api.core.v1.ConfigMapKeySelector"
+                        },
+                        "secretKeyRef": {
+                            "description": "Selects a key of a secret in the resource namespace",
+                            "$ref": "https://kubernetesjsonschema.dev/v1.15.0/_definitions.json#/definitions/io.k8s.api.core.v1.SecretKeySelector"
+                        }
+                    },
+                    "type": "object"
+                },
+                "numPartitions": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "replicationFactor": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "topicName": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "topicName"
+            ],
+            "type": "object"
+        },
+        "ibmcloud.ibm.com.v1alpha1.TopicStatus": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "properties": {
+                        "message": {
+                            "type": "string"
+                        },
+                        "state": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                }
+            }
+        },
+        "ibmcloud.ibm.com.v1alpha1.Topic": {
+            "x-kubernetes-group-version-kind": [
+                {
+                    "kind": "Topic",
+                    "version": "v1alpha1",
+                    "group": "ibmcloud.ibm.com"
+                }
+            ],
+            "description": "ibmcloud.ibm.com.v1alpha1.Topic",
+            "type": "object",
+            "properties": {
+                "apiVersion": {
+                    "$ref": "#/definitions/apiVersion"
+                },
+                "kind": {
+                    "description": "Kind is a string value representing the REST resource this object represents.",
+                    "type": "string",
+                    "enum": [
+                        "Topic"
+                    ]
+                },
+                "metadata": {
+                    "$ref": "#/definitions/metadata"
+                },
+                "spec": {
+                    "description": "Specification. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status",
+                    "$ref": "#/definitions/ibmcloud.ibm.com.v1alpha1.TopicSpec"
+                },
+                "status": {
+                    "description": "Most recently observed status. This data may not be up to date. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status",
+                    "$ref": "#/definitions/ibmcloud.ibm.com.v1alpha1.TopicStatus"
+                }
+            }
+        },
+        "ibmcloud.ibm.com.v1alpha1.BucketSpec": {
+            "properties": {
+                "apiKey": {
+                    "properties": {
+                        "configMapKeyRef": {
+                            "description": "Selects a key of a ConfigMap.",
+                            "$ref": "https://kubernetesjsonschema.dev/v1.15.0/_definitions.json#/definitions/io.k8s.api.core.v1.ConfigMapKeySelector"
+                        },
+                        "secretKeyRef": {
+                            "description": "Selects a key of a secret in the resource namespace",
+                            "$ref": "https://kubernetesjsonschema.dev/v1.15.0/_definitions.json#/definitions/io.k8s.api.core.v1.SecretKeySelector"
+                        }
+                    },
+                    "type": "object"
+                },
+                "bindOnly": {
+                    "type": "boolean"
+                },
+                "bindingFrom": {
+                    "properties": {
+                        "name": {
+                            "type": "string"
+                        },
+                        "namespace": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "name"
+                    ],
+                    "type": "object"
+                },
+                "bucketType": {
+                    "description": "Default to us-south",
+                    "type": "string"
+                },
+                "context": {
+                    "description": "Default to true",
+                    "properties": {
+                        "org": {
+                            "type": "string"
+                        },
+                        "region": {
+                            "type": "string"
+                        },
+                        "resourcegroup": {
+                            "type": "string"
+                        },
+                        "resourcelocation": {
+                            "type": "string"
+                        },
+                        "space": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "org",
+                        "space",
+                        "region",
+                        "resourcegroup",
+                        "resourcelocation"
+                    ],
+                    "type": "object"
+                },
+                "corsRules": {
+                    "properties": {
+                        "allowedHeader": {
+                            "description": "Default to *",
+                            "type": "string"
+                        },
+                        "allowedMethods": {
+                            "description": "Default to *",
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "allowedOrigin": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "endpoints": {
+                    "properties": {
+                        "configMapKeyRef": {
+                            "description": "Selects a key of a ConfigMap.",
+                            "$ref": "https://kubernetesjsonschema.dev/v1.15.0/_definitions.json#/definitions/io.k8s.api.core.v1.ConfigMapKeySelector"
+                        },
+                        "secretKeyRef": {
+                            "description": "Selects a key of a secret in the resource namespace",
+                            "$ref": "https://kubernetesjsonschema.dev/v1.15.0/_definitions.json#/definitions/io.k8s.api.core.v1.SecretKeySelector"
+                        }
+                    },
+                    "type": "object"
+                },
+                "keepIfNotEmpty": {
+                    "type": "boolean"
+                },
+                "keyProtect": {
+                    "description": "Default to standard",
+                    "properties": {
+                        "apiKey": {
+                            "properties": {
+                                "configMapKeyRef": {
+                                    "description": "Selects a key of a ConfigMap.",
+                                    "type": "object"
+                                },
+                                "secretKeyRef": {
+                                    "description": "Selects a key of a secret in the resource namespace",
+                                    "type": "object"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "bindingFrom": {
+                            "properties": {
+                                "name": {
+                                    "type": "string"
+                                },
+                                "namespace": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "name"
+                            ],
+                            "type": "object"
+                        },
+                        "instanceID": {
+                            "type": "string"
+                        },
+                        "instanceLocation": {
+                            "type": "string"
+                        },
+                        "instanceName": {
+                            "type": "string"
+                        },
+                        "keyName": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "keyName"
+                    ],
+                    "type": "object"
+                },
+                "location": {
+                    "description": "Default to regional",
+                    "type": "string"
+                },
+                "region": {
+                    "properties": {
+                        "configMapKeyRef": {
+                            "description": "Selects a key of a ConfigMap.",
+                            "type": "object"
+                        },
+                        "secretKeyRef": {
+                            "description": "Selects a key of a secret in the resource namespace",
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                },
+                "resiliency": {
+                    "type": "string"
+                },
+                "resourceInstanceID": {
+                    "properties": {
+                        "configMapKeyRef": {
+                            "description": "Selects a key of a ConfigMap.",
+                            "$ref": "https://kubernetesjsonschema.dev/v1.15.0/_definitions.json#/definitions/io.k8s.api.core.v1.ConfigMapKeySelector"
+                        },
+                        "secretKeyRef": {
+                            "description": "Selects a key of a secret in the resource namespace",
+                            "$ref": "https://kubernetesjsonschema.dev/v1.15.0/_definitions.json#/definitions/io.k8s.api.core.v1.SecretKeySelector"
+                        }
+                    },
+                    "type": "object"
+                },
+                "retentionPolicy": {
+                    "description": "Default to false",
+                    "properties": {
+                        "defaultRetentionDay": {
+                            "format": "int64",
+                            "type": "integer"
+                        },
+                        "maximumRetentionDay": {
+                            "format": "int64",
+                            "type": "integer"
+                        },
+                        "minimumRetentionDay": {
+                            "format": "int64",
+                            "type": "integer"
+                        }
+                    },
+                    "type": "object"
+                },
+                "storageClass": {
+                    "description": "Default to public",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "required": [
+                "apiKey",
+                "endpoints",
+                "resourceInstanceID"
+            ]
+        },
+        "ibmcloud.ibm.com.v1alpha1.BucketStatus": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "properties": {
+                        "message": {
+                            "type": "string"
+                        },
+                        "state": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                }
+            }
+        },
+        "ibmcloud.ibm.com.v1alpha1.Bucket": {
+            "x-kubernetes-group-version-kind": [
+                {
+                    "kind": "Bucket",
+                    "version": "v1alpha1",
+                    "group": "ibmcloud.ibm.com"
+                }
+            ],
+            "description": "ibmcloud.ibm.com.v1alpha1.Bucket",
+            "type": "object",
+            "properties": {
+                "apiVersion": {
+                    "$ref": "#/definitions/apiVersion"
+                },
+                "kind": {
+                    "description": "Kind is a string value representing the REST resource this object represents.",
+                    "type": "string",
+                    "enum": [
+                        "Bucket"
+                    ]
+                },
+                "metadata": {
+                    "$ref": "#/definitions/metadata"
+                },
+                "spec": {
+                    "description": "Specification. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status",
+                    "$ref": "#/definitions/ibmcloud.ibm.com.v1alpha1.BucketSpec"
+                },
+                "status": {
+                    "description": "Most recently observed status. This data may not be up to date. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status",
+                    "$ref": "#/definitions/ibmcloud.ibm.com.v1alpha1.BucketStatus"
+                }
+            }
+        },
+        "ibmcloud.ibm.com.v1alpha1.EsIndexSpec": {
+            "properties": {
+                "bindOnly": {
+                    "description": "Bind to an existing index if true, default value false",
+                    "type": "boolean"
+                },
+                "bindingFrom": {
+                    "description": "Binding resource name that holds the secret for elastic search credentials",
+                    "properties": {
+                        "name": {
+                            "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "esURIComposed": {
+                    "description": "EsURIComposed is the URI of elasticesearch resource in the format https://<user>:<passwd>@hostname:port. Cannot be used if BindingFrom is not empty.",
+                    "properties": {
+                        "configMapKeyRef": {
+                            "description": "Selects a key of a ConfigMap in the local namespace.",
+                            "$ref": "https://kubernetesjsonschema.dev/v1.17.0/_definitions.json#/definitions/io.k8s.api.core.v1.ConfigMapKeySelector"
+                        },
+                        "secretKeyRef": {
+                            "description": "Selects a key of a secret in the local namespace",
+                            "$ref": "https://kubernetesjsonschema.dev/v1.17.0/_definitions.json#/definitions/io.k8s.api.core.v1.SecretKeySelector"
+                        }
+                    },
+                    "type": "object"
+                },
+                "indexName": {
+                    "description": "Name of Index to be created on elastic search",
+                    "type": "string"
+                },
+                "numberOfReplicas": {
+                    "description": "Number of replicas, default value 1",
+                    "format": "int64",
+                    "type": "integer",
+                    "minimum": 1
+                },
+                "numberOfShards": {
+                    "description": "Number of shards, default value 1",
+                    "format": "int64",
+                    "type": "integer",
+                    "minimum": 1
+                }
+            },
+            "required": [
+                "indexName"
+            ],
+            "type": "object"
+        },
+        "ibmcloud.ibm.com.v1alpha1.EsIndexStatus": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "properties": {
+                        "generation": {
+                            "description": "Generation of the implemented spec",
+                            "format": "int64",
+                            "type": "integer"
+                        },
+                        "message": {
+                            "description": "Message",
+                            "type": "string"
+                        },
+                        "state": {
+                            "description": "State of the resource instance",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "generation"
+                    ],
+                    "type": "object"
+                }
+            }
+        },
+        "ibmcloud.ibm.com.v1alpha1.EsIndex": {
+            "x-kubernetes-group-version-kind": [
+                {
+                    "kind": "EsIndex",
+                    "version": "v1alpha1",
+                    "group": "ibmcloud.ibm.com"
+                }
+            ],
+            "description": "ibmcloud.ibm.com.v1alpha1.EsIndex",
+            "type": "object",
+            "properties": {
+                "apiVersion": {
+                    "$ref": "#/definitions/apiVersion"
+                },
+                "kind": {
+                    "description": "Kind is a string value representing the REST resource this object represents.",
+                    "type": "string",
+                    "enum": [
+                        "EsIndex"
+                    ]
+                },
+                "metadata": {
+                    "$ref": "#/definitions/metadata"
+                },
+                "spec": {
+                    "description": "Specification. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status",
+                    "$ref": "#/definitions/ibmcloud.ibm.com.v1alpha1.EsIndexSpec"
+                },
+                "status": {
+                    "description": "Most recently observed status. This data may not be up to date. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status",
+                    "$ref": "#/definitions/ibmcloud.ibm.com.v1alpha1.EsIndexStatus"
+                }
+            }
+        }
+    },
+    "oneOf": [
+        {
+            "$ref": "#/definitions/ibmcloud.ibm.com.v1alpha1.Service"
+        },
+        {
+            "$ref": "#/definitions/ibmcloud.ibm.com.v1alpha1.Binding"
+        },
+        {
+            "$ref": "#/definitions/ibmcloud.ibm.com.v1alpha1.Composable"
+        },
+        {
+            "$ref": "#/definitions/ibmcloud.ibm.com.v1alpha1.Topic"
+        },
+        {
+            "$ref": "#/definitions/ibmcloud.ibm.com.v1alpha1.Bucket"
+        },
+        {
+            "$ref": "#/definitions/ibmcloud.ibm.com.v1alpha1.EsIndex"
+        }
+    ]
+}
