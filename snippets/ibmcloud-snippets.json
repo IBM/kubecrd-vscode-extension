@@ -1,0 +1,95 @@
+{
+	"IBM Cloud Service":{
+		"prefix": "IBMCloud Service",
+		"body": [
+			"apiVersion: ibmcloud.ibm.com/v1alpha1",
+			"kind: Service",
+			"metadata:",
+			"  name: ${1:myservice}",
+			"spec:",
+			"  serviceClass: ${2:serviceclass}",
+			"  plan: ${3:planname}"
+		]
+	},
+	"IBM Cloud Binding":{
+		"prefix": "IBMCloud Binding",
+		"body": [
+			"apiVersion: ibmcloud.ibm.com/v1alpha1",
+			"kind: Binding",
+			"metadata:",
+			"  name: ${1:mybinding}",
+			"spec:",
+			"  serviceName: ${2:servicename}"
+		]
+	},
+	"IBM Cloud Composable":{
+		"prefix": "IBMCloud Composable",
+		"body":[
+			"apiVersion: ibmcloud.ibm.com/v1alpha1",
+			"kind: Composable",
+			"metadata:",
+			"  name: ${1:mycomposable}",
+			"spec:",
+			"  template:",
+			"    apiVersion: ${2:group/version}",
+			"    kind: ${3:kind}",
+			"    metadata:",
+			"      name: ${4:name}"
+		]
+	},
+	"IBM Cloud Evant Stream Topic":{
+		"prefix": "IBMCloud EventStreamTopic",
+		"body":[
+			"apiVersion: ibmcloud.ibm.com/v1alpha1",
+			"kind: Topic",
+			"metadata:",
+			"  name: ${1:mytopic}",
+			"spec:",
+			"  bindingFrom:",
+			"    name: ${2:mybinding}",
+			"  topicName: ${3:mytopic}",
+			"  numPartitions: ${4:3}",
+			"  replicationFactor: ${5:3}",
+			"  configs:",
+			"  - name: ${6:retentionMs}",
+			"    value: ${7:2592000000}"
+		]
+	},
+	"IBM Cloud COS Bucket":{
+		"prefix": "IBMCloud COSBucket",
+		"body":[
+			"apiVersion: ibmcloud.ibm.com/v1alpha1",
+			"kind: Bucket",
+			"metadata:",
+			"  name: ${1:my-cos-bucket-001}",
+			"spec:",
+			"  apiKey:",
+			"    secretKeyRef:",
+			"      name: ${2:cos-hmac}",
+			"      key: ${3:apikey}",
+			"  resourceInstanceID:",
+			"    secretKeyRef:",
+			"      name: ${2:cos-hmac}",
+			"      key: ${4:resource_instance_id}",
+			"  endpoints:",
+			"    configMapKeyRef:",
+			"      name: ${2:cos-hmac}",
+			"      key: ${5:endpoints}"
+		]
+	},
+	"IBM Cloud ElasticSearch Index":{
+		"prefix": "IBMCloud ElasticSearchIndex",
+		"body":[
+			"apiVersion: ibmcloud.ibm.com/v1alpha1",
+			"kind: EsIndex",
+			"metadata:",
+			"  name: ${1:myindex}",
+			"spec:",
+			"  bindingFrom:",
+			"    name: ${2:bindingname}",
+			"  indexName: ${3:indexname}",
+			"  numberOfShards: ${4:1}",
+			"  numberOfReplicas: ${5:1}"
+		]
+	}
+}

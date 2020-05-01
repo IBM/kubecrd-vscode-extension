@@ -1,0 +1,32 @@
+{
+	"IBM iter8 Experiment": {
+		"prefix": "IBM iter8 Experiment",
+		"body": [
+			"apiVersion: iter8.tools/v1alpha1",
+			"kind: Experiment",
+			"metadata:",
+			"  name: ${1:new-rollout}",
+			"  namespace: ${2:namespace}",
+			"spec:",
+			"  targetService:",
+			"    apiVersion: serving.knative.dev/v1alpha1",
+			"    name: ${3: servicename}",
+			"    baseline: ${4:baseline_version}",
+			"    candidate: ${5:candidate_version}",
+			"  trafficControl:",
+			"    strategy: ${6:check_and_increment}",
+			"    interval: ${7:30s}",
+			"    trafficStepSize: ${8:20}",
+			"    maxIterations: ${9:8}",
+			"    maxTrafficPercentage: ${10:80}",
+			"  analysis:",
+			"    analyticsService: ${11:http://iter8-analytics.iter8}",
+			"    successCriteria:",
+			"    - metricName: ${12:iter8_latency}",
+			"      toleranceType: ${13:threshold}",
+			"      tolerance: ${14:0.2}",
+			"      sampleSize: ${15:5}"
+		],
+		"description": "Automated canary releases with iter8 on Knative template"
+	}
+}
