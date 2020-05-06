@@ -31,6 +31,9 @@ if [ -z ${BASH_SOURCE} ]; then
   unzip -qq kubecrd-vscode-extension-master.zip
   mv kubecrd-vscode-extension-master kubecrd-vscode-extension-0.0.1
   cp -r kubecrd-vscode-extension-0.0.1 ~/.vscode/extensions/.
+  cd ~/.vscode/extensions/kubecrd-vscode-extension-0.0.1
+  npm install
+  tsc -b
   cd /tmp
   rm -rf kubecrd-vscode-extension
   echo "Installed at ~/.vscode/extensions/kubecrd-vscode-extension-0.0.1"

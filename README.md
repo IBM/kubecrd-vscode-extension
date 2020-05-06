@@ -39,7 +39,7 @@ You may also install Microsoft Kubernetes Tools extension if you want to edit Ku
 You need the github.ibm.com token to access the repository, please [get your github token](https://github.ibm.com/settings/tokens) and set it in `IBM_GITHUB_TOKEN`. Then, run:
 
 ```
-curl -sL https://${IBM_GIT_TOKEN}@raw.github.ibm.com/seed/crd-validation-tool/master/hack/install.sh | bash 
+curl -sL 'https://raw.githubusercontent.com/IBM/kubecrd-vscode-extension/master/hack/install.sh' | bash 
 ```
 
 This will install the CRD validation extention to VS Code directory at `~/.vscode/extentions/crd-validation-tool-xxx`.
@@ -84,6 +84,6 @@ You can try it out by creating a yaml file named e.g. test.eventing.yaml. Pressi
 Run the following command to remove the extension.
 
 ```
-curl -sL https://${IBM_GIT_TOKEN}@raw.github.ibm.com/seed/crd-validation-tool/master/hack/uninstall.sh | bash 
+curl -sL 'https://raw.githubusercontent.com/IBM/kubecrd-vscode-extension/master/hack/uninstall.sh' | bash 
 ```
 
