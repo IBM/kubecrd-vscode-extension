@@ -187,7 +187,7 @@
 	"Kn Source InMemoryChannel": {
 		"prefix": "KnSource InMemoryChannel",
 		"body": [
-			"apiVersion: messaging.knative.dev/v1alpha1",
+			"apiVersion: messaging.knative.dev/v1beta1",
 			"kind: InMemoryChannel",
 			"metadata:",
 			"  name: ${1:mychannel}"
