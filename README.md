@@ -12,7 +12,7 @@ In supporting to IBM Cloud CRs it integrates IBM Cloud Catalog and provides sugg
 
 * Suggestions from IBM Cloud Catalog for IBM CLoud Service CRs
 
-![screencast](https://github.com/IBM/kubecrd-vscode-extension/master/images/demo.gif)
+![screencast](https://github.com/IBM/kubecrd-vscode-extension/blob/master/images/demo.gif)
 
 ## Release Notes
 
