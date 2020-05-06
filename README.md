@@ -1,16 +1,18 @@
 # A VS Code Extension for IBM Cloud Service CRDs
 
-This extension provides kubernetes CRD templates and validation to help developers easily create and debug Custom Resource (CR) yaml specifications in IDE.
+This extension provides Kubernetes Custom Resources (CR) templates, syntax validations, and content suggestions to help developers easily create and debug CR specifications in IDE.
+
+In supporting to IBM Cloud CRs it integrates IBM Cloud Catalog and provides suggestions on the available services and plans.
 
 ## Features
 
-* Custom resource templates
+* CR templates
 
-* Custom resource specification validation
+* Syntax validation
 
-* Auto complete feature for IBM Cloud Service classes and plans
+* Suggestions from IBM Cloud Catalog for IBM CLoud Service CRs
 
-* Cross resource dependency check (ToDo)
+![screencast](https://raw.githubusercontent.com/IBM/kubecrd-vscode-extension/master/images/demo.gif)
 
 ## Release Notes
 
@@ -20,11 +22,11 @@ Initial release including support for the following:
 
 * CRD schemas and validation
 
-  - Knative Eventing CRDs (samples of those having schema defined in CRD yaml)
-  - iter8 CRD
   - IBM Cloud Service CRDs
+  - Knative Eventing CRDs (those that have schema defined in CRD yaml)
+  - iter8 CRD
 
-* Custom resource specification templates
+* Templates
 
 * Auto completion and validation for IBM Cloud Service classes and plans
 
@@ -36,22 +38,22 @@ You may also install Microsoft Kubernetes Tools extension if you want to edit Ku
 
 ## Install
 
-You need the github.ibm.com token to access the repository, please [get your github token](https://github.ibm.com/settings/tokens) and set it in `IBM_GITHUB_TOKEN`. Then, run:
+Run the following command to install:
 
 ```
 curl -sL 'https://raw.githubusercontent.com/IBM/kubecrd-vscode-extension/master/hack/install.sh' | bash 
 ```
 
-This will install the CRD validation extention to VS Code directory at `~/.vscode/extentions/crd-validation-tool-xxx`.
+This will install the extention to VS Code directory at `~/.vscode/extentions/kubecrd-vscode-extension-0.0.1`.
 
-Start or restart VS Code to have it take effect.
+Restart VS Code to activate the extension.
 
 
 ## Configure Extension Settings
 
 Open VS Code settings.json. `File -> Preferences -> Settings -> Extensions -> Scroll down and find "Edit in settings.json"`
 
-Add the following entry to asociate the CRD schemas from this extension with the yaml files in a glob pattern. Then Save the change. (This instructs VS Code to apply the schemas to the yaml files of the naming patterns)
+Add the following entry to asociate the CRD schemas from this extension with the yaml files in a glob pattern. Then Save the settings. (This instructs VS Code to apply the schemas to the yaml files of the naming patterns)
 
 ```
     "yaml.schemas": {
@@ -61,16 +63,23 @@ Add the following entry to asociate the CRD schemas from this extension with the
 
 where 
 
-`<path of schemas json file>` should be `<home_directory>/.vscode/extensions/crd-validation-tool-0.0.1/schemas/crd-definitions.json`; and 
-
-`<yaml files glob pattern>` could be `*.eventing.yaml`, `*.iter8.yaml`, etc. 
+`<path of schemas json file>` should point to the CRD schema files under `<home_directory>/.vscode/extensions/kubecrd-vscode-extension-0.0.1/schemas/`; and `<yaml files glob pattern>` could be `*.eventing.yaml`, `*.iter8.yaml`, `*.ibmcloudetc`. 
     
-An example is shown below.
+The extension contains three schema files:
+
+* ibmcloud-crd-definitions.json
+
+* knative-crd-definitions.json
+
+* iter8-crd-definitions.json
+
+A setting example  is shown below.
 
 ```
     "yaml.schemas": {
-        "file:///<user home directory>/.vscode/extensions/crd-validation-tool-0.0.1/schemas/crd-definitions.json": ["*.eventing.yaml", "*.iter8.yaml"],
-        "file:///<user home directory>/.vscode/extensions/crd-validation-tool-0.0.1/schemas/ibmcloud-crd-definitions.json": ["*.ibmcloud.yaml"]
+            "file:///Users/luan/.vscode/extensions/kubecrd-vscode-extension-0.0.1/schemas/ibmcloud-crd-definitions.json": ["*.ibmcloud.yaml"],
+            "file:///Users/luan/.vscode/extensions/kubecrd-vscode-extension-0.0.1/schemas/iter8-crd-definitions.json": ["*.iter8.yaml"],
+            "file:///Users/luan/.vscode/extensions/kubecrd-vscode-extension-0.0.1/schemas/knative-crd-definitions.json": ["*.kn.yaml"]
     }
 
 ```
