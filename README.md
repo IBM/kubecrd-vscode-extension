@@ -86,7 +86,7 @@ A setting example  is shown below.
 
 ## Test
 
-You can try it out by creating a yaml file named e.g. test.eventing.yaml. Pressing Ctl + Space keys will display a pop-up menu for templates and suggestions.
+You can try it out by creating a yaml file named e.g. test.kn.yaml for KNative CRs. Pressing Ctl + Space keys will display a pop-up menu with available templates and suggestions.
 
 ## Uninstall
 
